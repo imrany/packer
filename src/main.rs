@@ -63,15 +63,7 @@ async fn main(){
     let port:u16=thread_rng().gen_range(3000..=8080);
 
     let current_exe_path=PathBuf::from(current_exe().unwrap());
-    let mut configurations_json_file_path=PathBuf::from("config.json");
-    println!("{}",configurations_json_file_path.is_file());
-    match configurations_json_file_path.is_file() {
-        true=>&configurations_json_file_path,
-        false=>{
-            configurations_json_file_path=Path::new(current_exe_path.parent().unwrap()).join("config.json");
-            &configurations_json_file_path
-        }
-    };
+    let configurations_json_file_path=Path::new(current_exe_path.parent().unwrap()).join("config.json");
     // let configurations_json_file_path=PathBuf::from("config.json");
     let read_json_content=match fs::read_to_string(&configurations_json_file_path){
         Ok(v)=>v,
