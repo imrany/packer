@@ -112,8 +112,8 @@ async fn serve(path: String, port:u16) {
                     println!(" Url: {url} ");
                 },
                 Err(_) => {
-                    url=format!("http://127.0.0.1:{port}");
-                    println!(" Localhost: 127.0.0.1 ");
+                    url=format!("http://localhost:{port}");
+                    println!(" Localhost: localhost ");
                     println!(" Url: {url}");
                 }
             };
