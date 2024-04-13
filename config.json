@@ -1,0 +1,5 @@
+{
+    "server_name":"www.example.org",
+    "location":"C:/template/web",
+    "listen":80
+}
