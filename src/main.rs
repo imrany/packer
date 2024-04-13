@@ -26,7 +26,7 @@ mod launch;
 use launch::launch_browser;
 
 #[derive(Parser)]
-#[command(author="Imrany <imranmat254@gmail.com>", version, about="Packer is a simple http server.", long_about = None)]
+#[command(author="Imrany <imranmat254@gmail.com>", version, about="Packer is a simple web server used to serve static contents.", long_about = None)]
 struct Args {
     /// Path to the folder you want to serve
     #[arg(short, long, value_name= "PATH")]
@@ -47,14 +47,16 @@ enum Commands {
 #[actix_web::main]
 async fn main(){
     let args = Args::parse();
+    let port:u16=thread_rng().gen_range(3000..=8080);
+
     if let Some(path) = args.root.as_deref() {
-        serve(path.to_string()).await;
+        serve(path.to_string(),port).await;
     }
     
     match &args.command {
         Some(Commands::Serve { path }) => {
             if let Some(path) = path.as_deref() {
-                serve(path.to_string()).await;
+                serve(path.to_string(),port).await;
             }else {
                 println!("  ERROR Specify a path to serve.");
                 println!(" {}",format!(" HINT: To serve the current folder - 'anvel serve ./'."));
@@ -67,8 +69,7 @@ async fn main(){
     }
 }
 
-async fn serve(path: String) {
-    let port:u16=thread_rng().gen_range(3000..=8080);
+async fn serve(path: String, port:u16) {
     let ipv4: (Ipv4Addr, u16)=("0.0.0.0".parse().unwrap(),port);
     let server=HttpServer::new(move ||
         App::new()
@@ -76,7 +77,7 @@ async fn serve(path: String) {
                 .default_handler(fn_service(|req: ServiceRequest| async {
                     let (req, _) = req.into_parts();
                     let current_exe_path=PathBuf::from(current_exe().unwrap());
-                    let file = NamedFile::open_async(Path::new(current_exe_path.parent().unwrap()).join("static_files/404.html")).await?;
+                    let file = NamedFile::open_async(Path::new(current_exe_path.parent().unwrap()).join("assets/error_page.html")).await?;
                     let res = file.into_response(&req);
                     Ok(ServiceResponse::new(req, res))
                 }))
