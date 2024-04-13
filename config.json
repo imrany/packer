@@ -1,5 +1,5 @@
 {
     "server_name":"www.example.org",
-    "location":"C:/template/web",
+    "location":"C:/Users/Imrany/Downloads",
     "listen":80
 }
