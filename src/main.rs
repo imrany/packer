@@ -2,6 +2,10 @@ use clap::{
     Parser,
     Subcommand,
 };
+use serde_json;
+use serde::{
+    Deserialize, Serialize
+};
 use rand::{thread_rng, Rng};
 use actix_web::{
     HttpServer,
@@ -19,11 +23,20 @@ use actix_files::{
 use std::{
     env::current_exe,
     net::Ipv4Addr,
-    path::{Path,PathBuf}
+    path::{Path,PathBuf},
+    fs,
 };
 use local_ip_address::local_ip;
 mod launch;
 use launch::launch_browser;
+
+
+#[derive(Serialize, Deserialize)]
+pub struct Configs {
+    server_name:String,
+    location:String,
+    listen:u16
+}
 
 #[derive(Parser)]
 #[command(author="Imrany <imranmat254@gmail.com>", version, about="Packer is a simple web server used to serve static contents.", long_about = None)]
@@ -49,6 +62,11 @@ async fn main(){
     let args = Args::parse();
     let port:u16=thread_rng().gen_range(3000..=8080);
 
+    // let current_exe_path=PathBuf::from(current_exe().unwrap());
+    // let configurations_json_file=Path::new(current_exe_path.parent().unwrap()).join("config.json");
+    let configurations_json_file=PathBuf::from("config.json");
+    let configurations:Configs=serde_json::from_str(fs::read_to_string(configurations_json_file).unwrap().as_str()).unwrap(); 
+
     if let Some(path) = args.root.as_deref() {
         serve(path.to_string(),port).await;
     }
@@ -64,7 +82,7 @@ async fn main(){
 
         }
         None => {
-            println!("Enter a subcommand");
+            serve(configurations.location,configurations.listen).await;
         }
     }
 }
@@ -86,21 +104,21 @@ async fn serve(path: String, port:u16) {
     .bind(ipv4);
     match server {
         Ok(serve) => {
-            let url=format!("http://localhost:{port}/");
+            let url;
+            match local_ip(){
+                Ok(ip) => {
+                    url=format!("http://{ip}:{port}");
+                    println!(" Networkhost: {ip} ");
+                    println!(" Url: {url} ");
+                },
+                Err(_) => {
+                    url=format!("http://127.0.0.1:{port}");
+                    println!(" Localhost: 127.0.0.1 ");
+                    println!(" Url: {url}");
+                }
+            };
             if let Err(e) = launch_browser(&url).await {
                 println!(" ERROR An error occurred when opening {url} {e}");
-            }else{
-                let my_local_ip = local_ip();
-                println!(" Local: {url}");
-                
-                match my_local_ip {
-                    Ok(ip) => {
-                        println!(" Network: {}",format!("http://{ip}:{port}/"));
-                    },
-                    Err(e) => {
-                        println!(" {} {}.", format!(" WARNING "),e );
-                    }
-                }
             };
             serve.run().await.unwrap_or_else(|err| println!(" ERROR {} ",err));
         },
