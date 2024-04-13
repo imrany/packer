@@ -2,7 +2,7 @@
 name = "packer"
 version = "0.1.0"
 edition = "2021"
-description = "Packer is a simple http server"
+description = "Packer is a simple web server used to serve static contents."
 license = "BSD-3-Clause License"
 authors = [
     "imrany <imranmat254@gmail.com>",
@@ -10,7 +10,7 @@ authors = [
 publish=false
 repository = "https://github.com/imrany/packer"
 readme = "README.md"
-categories = ["http", "serve", "CLI"]
+categories = ["web", "serve", "CLI"]
 keywords = ["packer", "network", "connect"]
 rust-version = "1.76.0"
 
