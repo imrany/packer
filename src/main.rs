@@ -63,7 +63,7 @@ async fn main(){
     let port:u16=thread_rng().gen_range(3000..=8080);
 
     let current_exe_path=PathBuf::from(current_exe().unwrap());
-    let configurations_json_file_path=Path::new(current_exe_path.parent().unwrap()).join("config.json");
+    let configurations_json_file_path=Path::new(current_exe_path.parent().unwrap().parent().unwrap()).join("config.json");
     // let configurations_json_file_path=PathBuf::from("config.json");
     let read_json_content=match fs::read_to_string(&configurations_json_file_path){
         Ok(v)=>v,
@@ -71,7 +71,7 @@ async fn main(){
             println!(" Creating config.json...\n ");
             let data=Configs{
                 server_name:String::from("My web server"),
-                location:PathBuf::from("error"),
+                location:PathBuf::from(current_exe_path.parent().unwrap().parent().unwrap()).join("error"),
                 listen:80
             };
             let data_as_json=serde_json::to_string(&data).unwrap();
@@ -110,7 +110,7 @@ async fn serve(path: PathBuf, port:u16, configurations:Option<&Configs>) {
                 .default_handler(fn_service(|req: ServiceRequest| async {
                     let (req, _) = req.into_parts();
                     let current_exe_path=PathBuf::from(current_exe().unwrap());
-                    let file = NamedFile::open_async(Path::new(current_exe_path.parent().unwrap()).join("error/index.html")).await?;
+                    let file = NamedFile::open_async(Path::new(current_exe_path.parent().unwrap().parent().unwrap()).join("error/index.html")).await?;
                     let res = file.into_response(&req);
                     Ok(ServiceResponse::new(req, res))
                 }))
