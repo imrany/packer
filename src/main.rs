@@ -123,13 +123,17 @@ async fn serve(path: PathBuf, port:u16, configurations:Option<&Configs>) {
             match local_ip(){
                 Ok(ip) => {
                     url=format!("http://{ip}:{port}");
-                    println!(" Server name: {} ", configurations.unwrap().server_name);
+                    if let Some(configs) = configurations {
+                        println!(" Server name: {} ", configs.server_name);
+                    };
                     println!(" Networkhost: {ip} ");
                     println!(" Url: {url} ");
                 },
                 Err(_) => {
                     url=format!("http://localhost:{port}");
-                    println!(" Server name: {} ", configurations.unwrap().server_name);
+                    if let Some(configs) = configurations {
+                        println!(" Server name: {} ", configs.server_name);
+                    };
                     println!(" Localhost: localhost ");
                     println!(" Url: {url}");
                 }
