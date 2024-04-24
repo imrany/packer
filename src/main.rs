@@ -41,9 +41,9 @@ pub struct Configs {
 #[derive(Parser)]
 #[command(author="Imrany <imranmat254@gmail.com>", version, about="Packer is a simple web server used to serve static contents.", long_about = None)]
 struct Args {
-    /// Path to the folder you want to serve
-    #[arg(short, long, value_name= "PATH")]
-    root: Option<String>,
+    /// Specify the port you want to serve on
+    #[arg(short, long, value_name= "PORT")]
+    port: Option<u16>,
 
     #[command(subcommand)]
     command: Option<Commands>,
@@ -81,15 +81,15 @@ async fn main(){
         }
     };
     let configurations:Configs=serde_json::from_str(read_json_content.as_str()).unwrap(); 
-
-    if let Some(path) = args.root.as_deref() {
-        serve(path.into(),port, None).await;
-    }
     
     match &args.command {
         Some(Commands::Serve { path }) => {
             if let Some(path) = path.as_deref() {
-                serve(path.into(),port, None).await;
+                if let Some(port_arg) = args.port {
+                    serve(path.into(),port_arg, None).await;
+                }else{
+                    serve(path.into(),port, None).await;
+                }
             }else {
                 println!("  ERROR Specify a path to serve.");
                 println!(" {}",format!(" HINT: To serve the current folder - 'packer serve ./'."));
