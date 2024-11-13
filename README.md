@@ -34,3 +34,7 @@ example
 packer --port=3000 serve ./
 ```
 
+## Source code
+View code [https://github.com/imrany/packer](https://github.com/imrany/packer)
+
+Build from source.
