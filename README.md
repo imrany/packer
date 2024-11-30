@@ -36,7 +36,7 @@ packer --port=3000 serve ./
 
 ## Downloads
 |   Operating systems |     Prebuilt Binaries            |
-|-----------------------|------------------------------|
+| -------------------- | ---------------------------- |
 |  Windows 64Bit        | [packer-v0.2.2-win64.zip](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-win64.zip)  |
 
 ## Source code
