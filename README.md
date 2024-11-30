@@ -34,7 +34,10 @@ example
 packer --port=3000 serve ./
 ```
 
-## Source code
-View code [https://github.com/imrany/packer](https://github.com/imrany/packer)
+## Downloads
+|   Operating systems |     Prebuilt Binaries            |
+|-----------------------|------------------------------|
+|  Windows 64Bit        | [packer-v0.2.2-win64.zip](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-win64.zip)  |
 
-Build from source.
+## Source code
+Built from source [packer source code](https://github.com/imrany/packer/archive/refs/tags/v0.2.2.zip)
