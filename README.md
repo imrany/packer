@@ -38,6 +38,21 @@ packer --port=3000 serve ./
 |   Operating systems |     Prebuilt Binaries            |
 | -------------------- | ---------------------------- |
 |  Windows 64Bit        | [packer-v0.2.2-win64.zip](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-win64.zip)  |
+|  macOS Intel          | [packer-v0.2.2-x86_64-apple-darwin.tar.gz](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-x86_64-apple-darwin.tar.gz) |
+|  macOS Apple Silicon  | [packer-v0.2.2-aarch64-apple-darwin.tar.gz](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-aarch64-apple-darwin.tar.gz) |
+|  Linux x86_64        | [packer-v0.2.2-x86_64-unknown-linux-gnu.tar.gz](https://github.com/imrany/packer/releases/download/v0.2.2/packer-v0.2.2-x86_64-unknown-linux-gnu.tar.gz) |
+
+## Installation
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/imrany/packer/main/install.sh | sh
+```
+
+## Uninstallation
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/imrany/packer/main/scripts/uninstall.sh | sh
+```
 
 ## Source code
 Built from source [packer source code](https://github.com/imrany/packer/archive/refs/tags/v0.2.2.zip)

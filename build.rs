@@ -6,7 +6,7 @@ fn main() {
     // only build the resource for release builds
     if std::env::var("PROFILE").unwrap() == "release" {
         let mut res = winres::WindowsResource::new();
-        res.set_icon("resources/ico/packer.ico");
+        res.set_icon("assets/icons/packer.ico");
         // .set_manifest(r#"
         //     <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
         //     <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
@@ -22,6 +22,5 @@ fn main() {
     }
 }
 
-#[cfg(not(target_os="windows"))]
-fn main() {
-}
+#[cfg(not(target_os = "windows"))]
+fn main() {}

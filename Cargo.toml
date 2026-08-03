@@ -1,6 +1,6 @@
 [package]
 name = "packer"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2021"
 description = "Packer is a simple web server used to serve static contents."
 license = "BSD-3-Clause License"
@@ -22,7 +22,7 @@ authors = "imrany"
 license = "BSD-3-Clause License"
 repository = "https://github.com/imrany/packer"
 homepage = "https://yourwebsite.com"
-ProductVersion="0.2.2"
+ProductVersion="0.2.3"
 FileDescription = "Packer is a simple web server used to serve static contents."
 ProductName = "Packer"
 LegalCopyright = "Copyright © 2024"
@@ -35,6 +35,9 @@ panic = "abort"
 
 [profile.release]
 panic = "abort"
+strip = true
+opt-level = "s"
+codegen-units = 1
 
 [dependencies]
 actix-cors = "0.7.0"
@@ -55,6 +58,9 @@ reqwest = { version = "0.11.23", features = ["json", "multipart"] }
 serde = { version = "1", features = ["derive"] }
 tokio = { version = "1.35.1", features = ["full"] }
 serde_json = "1"
+self_update = { version = "0.40", features = ["archive-tar", "archive-zip", "compression-flate2", "compression-zip-deflate"] }
+env_logger = "0.11.11"
+log = "0.4.33"
 
 [target.'cfg(windows)'.build-dependencies]
 winres = "0.1.12"
