@@ -50,6 +50,9 @@ enum Commands {
     },
     /// Updates the packer binary to the latest version.
     Update,
+
+    /// Uninstalls the packer binary.
+    Uninstall,
 }
 
 #[actix_web::main]
@@ -109,6 +112,11 @@ async fn main() -> std::io::Result<()> {
         Some(Commands::Update) => {
             if let Err(e) = update_packer() {
                 error!("Failed to update: {}", e);
+            }
+        }
+        Some(Commands::Uninstall) => {
+            if let Err(e) = uninstall_packer() {
+                error!("Failed to uninstall: {}", e);
             }
         }
         None => {
@@ -203,5 +211,17 @@ fn update_packer() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
+    Ok(())
+}
+
+fn uninstall_packer() -> Result<(), Box<dyn std::error::Error>> {
+    info!("Uninstalling Packer...");
+    let bin_path = PathBuf::from("/usr/local/bin");
+    let binary_path = bin_path.join(env!("CARGO_PKG_NAME"));
+    std::process::Command::new("rm")
+        .arg(&binary_path)
+        .status()
+        .map_err(|e| Box::new(e))?;
+    info!("Packer uninstalled successfully.");
     Ok(())
 }

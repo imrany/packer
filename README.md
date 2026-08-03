@@ -45,7 +45,7 @@ packer --port=3000 serve ./
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/imrany/packer/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/imrany/packer/main/scripts/install.sh | sh
 ```
 
 ## Uninstallation
