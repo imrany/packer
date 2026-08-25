@@ -1,13 +1,13 @@
 [package]
 name = "packer"
-version = "0.2.3"
+version = "0.2.4"
 edition = "2021"
 description = "Packer is a simple web server used to serve static contents."
 license = "BSD-3-Clause License"
 authors = [
     "imrany <imranmat254@gmail.com>",
 ]
-publish=false
+publish = false
 repository = "https://github.com/imrany/packer"
 readme = "README.md"
 categories = ["web", "serve", "CLI"]
@@ -15,20 +15,16 @@ keywords = ["packer", "network", "connect"]
 rust-version = "1.76.0"
 build = "build.rs"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [package.metadata.winres]
 OriginalFilename = "packer.exe"
 authors = "imrany"
 license = "BSD-3-Clause License"
 repository = "https://github.com/imrany/packer"
 homepage = "https://yourwebsite.com"
-ProductVersion="0.2.3"
+ProductVersion = "0.2.4"
 FileDescription = "Packer is a simple web server used to serve static contents."
 ProductName = "Packer"
-LegalCopyright = "Copyright © 2024"
-
-# [build]
-# target = ["x86_64-pc-windows-msvc","x86_64-unknown-linux-gnu"]
+LegalCopyright = "Copyright © 2026"
 
 [profile.dev]
 panic = "abort"

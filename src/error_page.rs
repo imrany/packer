@@ -1,6 +1,5 @@
 /// Embedded 404 Error Page HTML compiled directly into the binary
 pub fn get_error_page_html(config_path: &str) -> String {
-    // Escape HTML special characters to prevent broken markup from paths with quotes/brackets
     let escaped_path = config_path
         .replace('&', "&amp;")
         .replace('<', "&lt;")
